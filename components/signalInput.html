@@ -1,0 +1,34 @@
+<section class="signal-input-card">
+  <div class="signal-input-head">
+    <h3 class="signal-input-title">Custom Signal Input</h3>
+    <label class="signal-toggle" aria-label="Enable custom signal">
+      <input type="checkbox" class="signal-toggle-input">
+      <span class="signal-toggle-track"></span>
+      <span class="signal-toggle-text">Enable Custom Signal</span>
+    </label>
+  </div>
+
+  <div class="signal-input-body" hidden>
+    <label class="signal-label">Enter Signal x(t)</label>
+    <input
+      type="text"
+      class="signal-expression"
+      placeholder="e.g. sin(t), t^2, exp(-t), sin(2*t)+cos(t)"
+      value="sin(t)"
+    >
+
+    <p class="signal-helper">Use 't' as variable. Supported: sin, cos, exp, ^, +, - , *</p>
+
+    <div class="signal-actions-row">
+      <button type="button" class="btn btn-outline signal-clear">Clear</button>
+      <div class="signal-examples">
+        <button type="button" class="signal-example" data-example="sin(t)">sin(t)</button>
+        <button type="button" class="signal-example" data-example="t^2">t^2</button>
+        <button type="button" class="signal-example" data-example="exp(-t)">exp(-t)</button>
+        <button type="button" class="signal-example" data-example="sin(2*t)+cos(t)">sin(2*t)+cos(t)</button>
+      </div>
+    </div>
+
+    <p class="signal-validation">Custom signal is disabled.</p>
+  </div>
+</section>

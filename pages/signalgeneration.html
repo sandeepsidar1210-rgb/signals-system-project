@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal Generation | Signal Analysis Virtual Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../components/signalInput.css">
+  <link rel="stylesheet" href="../components/explanationPanel/explanationPanel.css">
+  <link rel="stylesheet" href="../chatbot.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.4.2/math.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+</head>
+<body data-page="signalgeneration">
+  <div id="navbar-slot"></div>
+
+  <main class="container">
+    <section class="hero">
+      <span class="badge">Signal Generation Tool</span>
+      <h1>Create and inspect fundamental signals</h1>
+      <p>Explore sine, step, and ramp signals with real-time parameter controls.</p>
+    </section>
+
+    <section class="page-grid">
+      <div class="card">
+        <h2>Controls</h2>
+        <div class="controls-grid">
+          <div class="control-row">
+            <label for="signal-type">Signal Type</label>
+            <select id="signal-type">
+              <option value="sine">Sine Wave</option>
+              <option value="step">Step Signal</option>
+              <option value="ramp">Ramp Signal</option>
+              <option value="impulse">Impulse Signal</option>
+              <option value="square">Square Wave</option>
+              <option value="triangular">Triangular Wave</option>
+              <option value="exponential">Exponential Signal</option>
+            </select>
+          </div>
+
+          <div class="control-row">
+            <div class="control-label">
+              <span>Amplitude</span>
+              <strong id="amp-value">1</strong>
+            </div>
+            <input type="range" id="amplitude" min="0.5" max="5" step="0.1" value="1">
+          </div>
+
+          <div class="control-row" id="freq-row">
+            <div class="control-label">
+              <span>Frequency (Hz)</span>
+              <strong id="freq-value">1</strong>
+            </div>
+            <input type="range" id="frequency" min="0.1" max="8" step="0.1" value="1">
+          </div>
+
+          <div class="control-row">
+            <div class="control-label">
+              <span>Time Range</span>
+              <strong id="time-value">5</strong>
+            </div>
+            <input type="range" id="time-range" min="2" max="12" step="1" value="5">
+          </div>
+
+          <div id="custom-signal-slot"></div>
+
+          <div class="control-actions">
+            <button class="btn btn-primary" id="reset-btn">Reset</button>
+            <button class="btn btn-outline" id="download-png" type="button">Download PNG</button>
+            <button class="btn btn-outline" id="export-pdf" type="button">Export PDF</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card plot-card">
+        <h2>Signal Graph</h2>
+        <div class="formula-live" id="signal-formula-live">x(t) = A sin(2 pi f t)</div>
+        <div id="generation-plot" class="plot"></div>
+      </div>
+    </section>
+
+    <section class="card exp-panel" id="generation-explanation"></section>
+
+    <section class="card theory-panel">
+      <h2>Theory and Formula Guide</h2>
+      <div class="theory-layout">
+        <article class="theory-card">
+          <h3 class="theory-card-title">Signal Definition</h3>
+          <div class="theory-box definition">A signal is a function of time that carries information, such as voltage, sound, or motion data from a real system.</div>
+          <div class="theory-box formula">x(t): continuous-time signal</div>
+          <div class="theory-box explanation">In this lab, you generate and inspect standard signals to understand how shape and parameters affect behavior.</div>
+        </article>
+
+        <article class="theory-card">
+          <h3 class="theory-card-title">Elementary Signals</h3>
+          <div class="theory-box definition">Three common building blocks are sine, step, and ramp signals.</div>
+          <div class="theory-box formula">Sine: x(t) = A sin(2 pi f t)</div>
+          <div class="theory-box formula">Step: u(t) = 1 for t &gt;= 0, else 0</div>
+          <div class="theory-box formula">Ramp: r(t) = t for t &gt;= 0, else 0</div>
+          <div class="theory-box explanation">These are frequently used to model periodic behavior, switching events, and linear growth.</div>
+        </article>
+
+        <article class="theory-card">
+          <h3 class="theory-card-title">Core Extensions</h3>
+          <div class="theory-box definition">Generated signals can be transformed or combined in later analysis modules.</div>
+          <div class="theory-box formula">Even: x_e(t) = (x(t) + x(-t)) / 2</div>
+          <div class="theory-box formula">Convolution: y(t) = integral x(tau) h(t - tau) dtau</div>
+          <div class="theory-box explanation">These formulas connect generation with decomposition and system-response analysis.</div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-slot"></div>
+  <div id="chatbot-slot"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <script src="../components/signalInput.js"></script>
+  <script src="../components/graph/graphUtils.js"></script>
+  <script src="../components/explanationPanel/explanationPanel.js"></script>
+  <script src="../script.js"></script>
+  <script src="../js/signalgeneration.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/chatbot.js"></script>
+</body>
+</html>

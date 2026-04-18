@@ -1,0 +1,125 @@
+.signal-input-card {
+  border: 1px solid rgba(79, 70, 229, 0.24);
+  border-radius: 14px;
+  padding: 12px;
+  background: linear-gradient(130deg, rgba(79, 70, 229, 0.05), rgba(6, 182, 212, 0.08));
+}
+
+.signal-input-head {
+  display: grid;
+  gap: 10px;
+}
+
+.signal-input-title {
+  margin: 0;
+  font-size: 1rem;
+  color: #1f2f7a;
+}
+
+.signal-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.signal-toggle-input {
+  display: none;
+}
+
+.signal-toggle-track {
+  width: 44px;
+  height: 24px;
+  background: #cbd5e1;
+  border-radius: 999px;
+  position: relative;
+  transition: 0.2s ease;
+}
+
+.signal-toggle-track::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  top: 3px;
+  left: 3px;
+  transition: 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+.signal-toggle-input:checked + .signal-toggle-track {
+  background: linear-gradient(135deg, #4F46E5, #06B6D4);
+}
+
+.signal-toggle-input:checked + .signal-toggle-track::after {
+  transform: translateX(20px);
+}
+
+.signal-toggle-text {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.signal-input-body {
+  margin-top: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.signal-label {
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.signal-expression {
+  width: 100%;
+}
+
+.signal-helper {
+  margin: 0;
+  font-size: 0.84rem;
+  color: #64748b;
+}
+
+.signal-actions-row {
+  display: grid;
+  gap: 10px;
+}
+
+.signal-examples {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.signal-example {
+  border: 1px solid #c7d2fe;
+  background: #fff;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 0.84rem;
+  cursor: pointer;
+  color: #3730a3;
+}
+
+.signal-example:hover {
+  background: #eef2ff;
+}
+
+.signal-validation {
+  margin: 0;
+  min-height: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.signal-validation.ok {
+  color: #15803d;
+}
+
+.signal-validation.error {
+  color: #b91c1c;
+}

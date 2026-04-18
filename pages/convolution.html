@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Convolution | Signal Analysis Virtual Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../components/signalInput.css">
+  <link rel="stylesheet" href="../components/explanationPanel/explanationPanel.css">
+  <link rel="stylesheet" href="../chatbot.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.4.2/math.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+</head>
+<body data-page="convolution">
+  <div id="navbar-slot"></div>
+
+  <main class="container">
+    <section class="hero">
+      <span class="badge">Convolution Tool</span>
+      <h1>Compute output from two input signals</h1>
+      <p>Choose two signals and observe how convolution blends them into a new system response.</p>
+    </section>
+
+    <section class="page-grid">
+      <div class="card">
+        <h2>Controls</h2>
+        <div class="controls-grid">
+          <div class="control-row">
+            <label for="signal1-type">Signal 1 Type</label>
+            <select id="signal1-type">
+              <option value="sine">Sine Wave</option>
+              <option value="step">Step Signal</option>
+              <option value="ramp">Ramp Signal</option>
+              <option value="impulse">Impulse</option>
+              <option value="square">Square Wave</option>
+              <option value="triangular">Triangular Wave</option>
+              <option value="exponential">Exponential Signal</option>
+            </select>
+          </div>
+
+          <div class="control-row">
+            <div class="control-label"><span>Signal 1 Amplitude</span><strong id="s1-amp-value">1</strong></div>
+            <input type="range" id="signal1-amp" min="0.5" max="4" step="0.1" value="1">
+          </div>
+
+          <div class="control-row">
+            <div class="control-label"><span>Signal 1 Frequency (Hz)</span><strong id="s1-freq-value">1</strong></div>
+            <input type="range" id="signal1-freq" min="0.1" max="6" step="0.1" value="1">
+          </div>
+
+          <div id="custom-signal1-slot"></div>
+
+          <div class="control-row">
+            <label for="signal2-type">Signal 2 Type</label>
+            <select id="signal2-type">
+              <option value="step">Step Signal</option>
+              <option value="sine">Sine Wave</option>
+              <option value="ramp">Ramp Signal</option>
+              <option value="impulse">Impulse</option>
+              <option value="square">Square Wave</option>
+              <option value="triangular">Triangular Wave</option>
+              <option value="exponential">Exponential Signal</option>
+            </select>
+          </div>
+
+          <div class="control-row">
+            <div class="control-label"><span>Signal 2 Amplitude</span><strong id="s2-amp-value">1</strong></div>
+            <input type="range" id="signal2-amp" min="0.5" max="4" step="0.1" value="1">
+          </div>
+
+          <div class="control-row">
+            <div class="control-label"><span>Signal 2 Frequency (Hz)</span><strong id="s2-freq-value">1</strong></div>
+            <input type="range" id="signal2-freq" min="0.1" max="6" step="0.1" value="1">
+          </div>
+
+          <div id="custom-signal2-slot"></div>
+
+          <div class="control-row">
+            <div class="control-label"><span>Time Range</span><strong id="time-value">4</strong></div>
+            <input type="range" id="time-range" min="2" max="8" step="1" value="4">
+          </div>
+
+          <div class="control-actions">
+            <button class="btn btn-primary" id="reset-btn">Reset</button>
+            <button class="btn btn-outline" id="animate-convolution" type="button">Animate Convolution</button>
+            <button class="btn btn-outline" id="download-png" type="button">Download PNG</button>
+            <button class="btn btn-outline" id="export-pdf" type="button">Export PDF</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card stack-plots">
+        <h2>Convolution Visualization</h2>
+        <div class="formula-live" id="convolution-formula-live">y(t) = integral x(tau) h(t - tau) dtau</div>
+        <div id="signal1-plot" class="plot"></div>
+        <div id="signal2-plot" class="plot"></div>
+        <div id="conv-plot" class="plot"></div>
+      </div>
+    </section>
+
+    <section class="card exp-panel" id="convolution-explanation"></section>
+
+    <section class="card theory-panel">
+      <h2>Theory and Formula Guide</h2>
+      <div class="theory-layout">
+        <article class="theory-card">
+          <h3 class="theory-card-title">Convolution Definition</h3>
+          <div class="theory-box definition">Convolution computes the output of a linear time-invariant system from an input and an impulse response.</div>
+          <div class="theory-box formula">y(t) = integral x(tau) h(t - tau) dtau</div>
+          <div class="theory-box explanation">It accumulates weighted overlap between one signal and a shifted version of the other.</div>
+        </article>
+
+        <article class="theory-card">
+          <h3 class="theory-card-title">Physical Interpretation</h3>
+          <div class="theory-box definition">At each time instant, you measure how strongly the two signals align and sum this effect over all tau.</div>
+          <div class="theory-box formula">Discrete idea: y[k] = sum x[n] h[k - n]</div>
+          <div class="theory-box explanation">In this lab, convolution is computed numerically using sampled values over a finite range.</div>
+        </article>
+
+        <article class="theory-card">
+          <h3 class="theory-card-title">Connection to Symmetry</h3>
+          <div class="theory-box definition">Even and odd decomposition helps analyze why certain convolution outputs appear symmetric or skewed.</div>
+          <div class="theory-box formula">x_e(t) = (x(t) + x(-t)) / 2</div>
+          <div class="theory-box formula">x_o(t) = (x(t) - x(-t)) / 2</div>
+          <div class="theory-box explanation">Decomposing first can make convolution behavior easier to reason about component-by-component.</div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-slot"></div>
+  <div id="chatbot-slot"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <script src="../components/signalInput.js"></script>
+  <script src="../components/graph/graphUtils.js"></script>
+  <script src="../components/explanationPanel/explanationPanel.js"></script>
+  <script src="../script.js"></script>
+  <script src="../js/convolution.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/chatbot.js"></script>
+</body>
+</html>
