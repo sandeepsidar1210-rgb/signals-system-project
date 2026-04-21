@@ -12,6 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
     reset: document.getElementById('reset-btn')
   };
   let customSignalInput = null;
+  let analysisPanel = null;
+  let animator = null; // Signal transformation animator instance
+  let guidedLearning = null; // Guided learning mode instance
 
   function toggleFrequencyControl() {
     const freqRow = document.getElementById('freq-row');
@@ -103,35 +106,80 @@ document.addEventListener('DOMContentLoaded', () => {
     const showEven = !controls.showEven || controls.showEven.checked;
     const showOdd = !controls.showOdd || controls.showOdd.checked;
 
-    drawPlot('original-plot', [
-      {
+    // Build traces with all data (visibility controlled by Plotly)
+    const traces = [];
+    
+    if (showOriginal) {
+      traces.push({
         x: times,
-        y: showOriginal ? original : times.map(() => null),
+        y: original,
         name: 'Original',
         mode: 'lines',
-        line: { color: '#4F46E5', width: 3, shape: 'spline', smoothing: 1 }
-      }
-    ], 'Original Signal');
+        line: { color: '#4F46E5', width: 3, shape: 'spline', smoothing: 1 },
+        hovertemplate: '<b>Original Signal</b><br>Time (t): %{x:.4f}s<br>Amplitude: %{y:.4f}<extra></extra>'
+      });
+    }
 
-    drawPlot('even-plot', [
-      {
+    if (showEven) {
+      traces.push({
         x: times,
-        y: showEven ? even : times.map(() => null),
-        name: 'Even component',
+        y: even,
+        name: 'Even',
         mode: 'lines',
-        line: { color: '#10B981', width: 3, shape: 'spline', smoothing: 1 }
-      }
-    ], 'Even Component');
+        line: { color: '#10B981', width: 3, shape: 'spline', smoothing: 1 },
+        hovertemplate: '<b>Even Component</b><br>Time (t): %{x:.4f}s<br>Amplitude: %{y:.4f}<extra></extra>'
+      });
+    }
 
-    drawPlot('odd-plot', [
-      {
+    if (showOdd) {
+      traces.push({
         x: times,
-        y: showOdd ? odd : times.map(() => null),
-        name: 'Odd component',
+        y: odd,
+        name: 'Odd',
         mode: 'lines',
-        line: { color: '#F59E0B', width: 3, shape: 'spline', smoothing: 1 }
+        line: { color: '#F59E0B', width: 3, shape: 'spline', smoothing: 1 },
+        hovertemplate: '<b>Odd Component</b><br>Time (t): %{x:.4f}s<br>Amplitude: %{y:.4f}<extra></extra>'
+      });
+    }
+
+    // Draw single combined plot
+    drawPlot('original-plot', traces, 'Even/Odd Decomposition');
+
+    // Initialize animator if not already done, and set up animation controls
+    if (!animator) {
+      animator = new SignalTransformationAnimator('original-plot', { duration: 2000 });
+      
+      // Set up animation button event listeners
+      const animateReversalBtn = document.getElementById('animate-reversal');
+      const animateDecomposeBtn = document.getElementById('animate-decompose');
+      
+      if (animateReversalBtn) {
+        animateReversalBtn.addEventListener('click', async () => {
+          if (animator && !animator.getIsAnimating()) {
+            animateReversalBtn.classList.add('active');
+            animateReversalBtn.disabled = true;
+            await animator.animateTimeReversal(times, original);
+            animateReversalBtn.classList.remove('active');
+            animateReversalBtn.disabled = false;
+          }
+        });
       }
-    ], 'Odd Component');
+      
+      if (animateDecomposeBtn) {
+        animateDecomposeBtn.addEventListener('click', async () => {
+          if (animator && !animator.getIsAnimating()) {
+            animateDecomposeBtn.classList.add('active');
+            animateDecomposeBtn.disabled = true;
+            await animator.animateDecomposition(times, original, even, odd);
+            animateDecomposeBtn.classList.remove('active');
+            animateDecomposeBtn.disabled = false;
+          }
+        });
+      }
+    } else {
+      // Animator already exists, just update with latest animation data
+      // (Data is captured in closure for button handlers)
+    }
 
     const classification = classifySignal(original, mirror);
     const formula = currentFormula();
@@ -147,6 +195,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     renderExplanation(classification, formula);
+    
+    // Render auto analysis panel
+    if (analysisPanel) {
+      analysisPanel.render(controls.baseType.value, times, original, frequency);
+    }
+    
     setTutorContext({
       page: 'Decomposition',
       baseType: controls.baseType.value,
@@ -187,11 +241,28 @@ document.addEventListener('DOMContentLoaded', () => {
   if (controls.exportPdf) controls.exportPdf.addEventListener('click', () => exportGraphPdf('even-plot', 'Even Odd Decomposition', currentFormula()));
 
   (async () => {
+    // Initialize analysis panel
+    analysisPanel = new SignalAnalysisPanel('auto-analysis-panel');
+    
+    // Initialize guided learning mode
+    guidedLearning = new GuidedLearningMode('guided-learning-container', 'decomposition');
+    
+    // Set up guided learning button
+    const guidedLearningBtn = document.getElementById('guided-learning-btn');
+    if (guidedLearningBtn) {
+      guidedLearningBtn.addEventListener('click', () => {
+        if (guidedLearning && !guidedLearning.isActive) {
+          guidedLearning.start('decomposition');
+        }
+      });
+    }
+    
     customSignalInput = await createSignalInput({
       containerId: 'custom-signal-slot',
       title: 'Custom Signal Input',
       enabledByDefault: false,
       initialExpression: 'sin(t)',
+      linkedControlIds: ['base-type'],
       onChange: render
     });
     applyExperimentPreset();

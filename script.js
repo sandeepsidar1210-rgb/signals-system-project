@@ -18,6 +18,7 @@ function navTemplate() {
         <a href="#" data-target="pages/decomposition.html" data-page="decomposition">Decomposition</a>
         <a href="#" data-target="pages/convolution.html" data-page="convolution">Convolution</a>
         <a href="#" data-target="pages/experiments.html" data-page="experiments">Experiments</a>
+        <a href="#" data-target="pages/test-yourself.html" data-page="test-yourself">Test Yourself</a>
       </div>
       <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">Dark</button>
     </div>
@@ -117,6 +118,9 @@ async function loadSharedLayout() {
   await injectComponent('chatbot-slot', `${base}chatbot.html`, chatbotTemplate());
   setupNavLinks();
   setFooterYear();
+  if (typeof renderMath === 'function') {
+    renderMath();
+  }
   document.dispatchEvent(new Event('layout:loaded'));
 }
 
@@ -150,6 +154,93 @@ function setTutorContext(context) {
 function getCurrentTutorContext() {
   return window.currentTutorContext || {};
 }
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function looksLikeMathText(text) {
+  return /\\[a-zA-Z]+|[=^_]|∫|τ|π|δ|Σ|Δ|∞|\b(sin|cos|tan|exp|log|sqrt|integral|sum)\b/i.test(String(text || ''));
+}
+
+function normalizeMathText(text) {
+  const value = String(text || '');
+  const trimmed = value.trim();
+  if (!trimmed) return value;
+
+  if (/\\\(|\\\)|\\\[|\\\]|\$\$|\$/.test(trimmed)) {
+    return value;
+  }
+
+  if (trimmed.length <= 160 && looksLikeMathText(trimmed)) {
+    return `\\[${trimmed}\\]`;
+  }
+
+  return value;
+}
+
+function wrapMathContainers(root) {
+  const target = root || document.body;
+  if (!target || typeof target.querySelectorAll !== 'function') return;
+
+  const selectors = [
+    '.formula-live',
+    '.theory-box.formula',
+    '.exp-formula',
+    '.glm-formula-box'
+  ];
+
+  target.querySelectorAll(selectors.join(',')).forEach((element) => {
+    if (element.dataset.mathWrapped === 'true') return;
+    const rawText = element.textContent || '';
+    const trimmed = rawText.trim();
+
+    if (!trimmed) {
+      element.dataset.mathWrapped = 'true';
+      return;
+    }
+
+    if (/\\\(|\\\)|\\\[|\\\]|\$\$|\$/.test(trimmed)) {
+      element.dataset.mathWrapped = 'true';
+      return;
+    }
+
+    const colonIndex = trimmed.indexOf(':');
+    if (colonIndex > -1) {
+      const label = trimmed.slice(0, colonIndex).trim();
+      const remainder = trimmed.slice(colonIndex + 1).trim();
+      if (remainder && looksLikeMathText(remainder)) {
+        element.innerHTML = `${escapeHtml(label)}: \\[${escapeHtml(remainder)}\\]`;
+        element.dataset.mathWrapped = 'true';
+        return;
+      }
+    }
+
+    if (trimmed.length <= 160 && looksLikeMathText(trimmed)) {
+      element.innerHTML = `\\[${escapeHtml(trimmed)}\\]`;
+    }
+    element.dataset.mathWrapped = 'true';
+  });
+}
+
+function renderMath(root = document.body) {
+  const target = root || document.body;
+  wrapMathContainers(target);
+
+  if (window.MathJax && typeof window.MathJax.typesetPromise === 'function') {
+    return window.MathJax.typesetPromise(target ? [target] : []).catch(() => {});
+  }
+
+  return Promise.resolve();
+}
+
+window.renderMath = renderMath;
+window.normalizeMathText = normalizeMathText;
 
 function signalFromSamples(times, signalAt) {
   return times.map((t) => signalAt(t));

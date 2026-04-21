@@ -10,6 +10,10 @@
   <link rel="stylesheet" href="../styles.css">
   <link rel="stylesheet" href="./decomposition.css">
   <link rel="stylesheet" href="../components/signalInput.css">
+  <link rel="stylesheet" href="../components/analysisPanel/analysisPanel.css">
+  <link rel="stylesheet" href="../components/graph/interactiveGraph.css">
+  <link rel="stylesheet" href="../components/graph/signalAnimations.css">
+  <link rel="stylesheet" href="../components/guidedLearning/guidedLearningMode.css">
   <link rel="stylesheet" href="../components/explanationPanel/explanationPanel.css">
   <link rel="stylesheet" href="../chatbot.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -74,12 +78,26 @@
             <button class="btn btn-primary" id="reset-btn">Reset</button>
             <button class="btn btn-outline" id="download-png" type="button">Download PNG</button>
             <button class="btn btn-outline" id="export-pdf" type="button">Export PDF</button>
+            <button class="btn btn-outline" id="guided-learning-btn" type="button" title="Start step-by-step learning guide">📚 Guided Learning</button>
           </div>
         </div>
       </div>
 
       <div class="card stack-plots">
         <h2>Decomposition Graphs</h2>
+        
+        <div class="animation-controls">
+          <span class="animation-controls-label">📊 Visualize Transformations:</span>
+          <button class="animation-button" id="animate-reversal" title="Animate x(t) → x(-t)">
+            <span class="animation-icon">🔄</span>
+            <span class="transform-label">Reverse x(-t)</span>
+          </button>
+          <button class="animation-button" id="animate-decompose" title="Show decomposition process">
+            <span class="animation-icon">⚡</span>
+            <span class="transform-label">Decompose</span>
+          </button>
+        </div>
+
         <div class="visibility-row">
           <label><input type="checkbox" id="show-original" checked> Original</label>
           <label><input type="checkbox" id="show-even" checked> Even</label>
@@ -87,12 +105,14 @@
         </div>
         <div class="formula-live" id="decomposition-formula-live">x_e(t) = (x(t) + x(-t))/2, x_o(t) = (x(t) - x(-t))/2</div>
         <div id="original-plot" class="plot"></div>
-        <div id="even-plot" class="plot"></div>
-        <div id="odd-plot" class="plot"></div>
       </div>
     </section>
 
     <section class="card exp-panel" id="decomposition-explanation"></section>
+
+    <section id="auto-analysis-panel"></section>
+
+    <div id="guided-learning-container"></div>
 
     <section class="card theory-panel">
       <h2>Theory and Formula Guide</h2>
@@ -124,11 +144,30 @@
   <div id="footer-slot"></div>
   <div id="chatbot-slot"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      },
+      startup: {
+        typeset: false
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <script src="../components/signalInput.js"></script>
   <script src="../components/graph/graphUtils.js"></script>
+  <script src="../components/graph/interactiveGraphUtils.js"></script>
+  <script src="../components/graph/signalAnimations.js"></script>
   <script src="../components/explanationPanel/explanationPanel.js"></script>
+  <script src="../components/analysisPanel/analysisPanel.js"></script>
+  <script src="../components/guidedLearning/guidedLearningMode.js"></script>
   <script src="../script.js"></script>
   <script src="../js/decomposition.js"></script>
   <script src="../js/config.js"></script>

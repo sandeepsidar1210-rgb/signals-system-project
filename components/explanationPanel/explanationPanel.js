@@ -20,13 +20,7 @@ function renderExplanationPanel(panelId, title, steps) {
     <div class="exp-panel-grid">${items}</div>
   `;
 
-  if (typeof renderMathInElement === 'function') {
-    renderMathInElement(panel, {
-      delimiters: [
-        { left: '$$', right: '$$', display: true },
-        { left: '$', right: '$', display: false }
-      ],
-      throwOnError: false
-    });
+  if (typeof renderMath === 'function') {
+    renderMath(panel);
   }
 }

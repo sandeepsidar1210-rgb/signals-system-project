@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   let customSignal1 = null;
   let customSignal2 = null;
+  let guidedLearning = null; // Guided learning mode instance
   let convolutionAnimationId = null;
 
   function signalWithImpulse(type, amplitude, frequency) {
@@ -218,11 +219,25 @@ document.addEventListener('DOMContentLoaded', () => {
   if (controls.exportPdf) controls.exportPdf.addEventListener('click', () => exportGraphPdf('conv-plot', 'Convolution Result', currentFormula()));
 
   (async () => {
+    // Initialize guided learning mode
+    guidedLearning = new GuidedLearningMode('guided-learning-container', 'convolution');
+    
+    // Set up guided learning button
+    const guidedLearningBtn = document.getElementById('guided-learning-btn');
+    if (guidedLearningBtn) {
+      guidedLearningBtn.addEventListener('click', () => {
+        if (guidedLearning && !guidedLearning.isActive) {
+          guidedLearning.start('convolution');
+        }
+      });
+    }
+    
     customSignal1 = await createSignalInput({
       containerId: 'custom-signal1-slot',
       title: 'Custom Signal 1 x(t)',
       enabledByDefault: false,
       initialExpression: 'sin(t)',
+      linkedControlIds: ['signal1-type'],
       onChange: render
     });
 
@@ -231,6 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
       title: 'Custom Signal 2 h(t)',
       enabledByDefault: false,
       initialExpression: 'exp(-t)',
+      linkedControlIds: ['signal2-type'],
       onChange: render
     });
 

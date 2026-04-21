@@ -5,6 +5,11 @@
   background: linear-gradient(130deg, rgba(79, 70, 229, 0.05), rgba(6, 182, 212, 0.08));
 }
 
+.signal-input-card.custom-mode-on {
+  border-color: rgba(79, 70, 229, 0.55);
+  box-shadow: 0 10px 28px rgba(79, 70, 229, 0.14);
+}
+
 .signal-input-head {
   display: grid;
   gap: 10px;
@@ -66,47 +71,105 @@
 .signal-input-body {
   margin-top: 12px;
   display: grid;
-  gap: 10px;
+  gap: 12px;
+}
+
+.signal-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .signal-label {
   font-weight: 600;
   font-size: 0.92rem;
+  color: #1f2937;
+}
+
+.signal-input-wrapper {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 8px;
 }
 
 .signal-expression {
   width: 100%;
+  padding: 10px 12px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: 'Courier New', monospace;
+  transition: all 0.3s ease;
+  background: #ffffff;
 }
 
-.signal-helper {
-  margin: 0;
-  font-size: 0.84rem;
-  color: #64748b;
+.signal-expression:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
 }
 
-.signal-actions-row {
-  display: grid;
-  gap: 10px;
+.signal-expression.input-valid {
+  border-color: #10b981;
+  background: #f0fdf4;
 }
 
-.signal-examples {
+.signal-input-card.custom-mode-on .signal-expression {
+  background: #f8f7ff;
+}
+
+.custom-disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.signal-expression.input-error {
+  border-color: #ef4444;
+  background: #fef2f2;
+}
+
+.signal-status-icon {
+  font-size: 1.5rem;
+  min-width: 28px;
+  height: 28px;
   display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
 }
 
-.signal-example {
-  border: 1px solid #c7d2fe;
-  background: #fff;
-  border-radius: 999px;
-  padding: 6px 10px;
-  font-size: 0.84rem;
-  cursor: pointer;
-  color: #3730a3;
+.signal-status-icon.valid {
+  color: #10b981;
+  animation: scaleIn 0.3s ease;
 }
 
-.signal-example:hover {
-  background: #eef2ff;
+.signal-status-icon.invalid {
+  color: #ef4444;
+  animation: shake 0.4s ease;
+}
+
+.signal-status-icon.disabled {
+  color: #9ca3af;
+  opacity: 0.7;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
 }
 
 .signal-validation {
@@ -114,12 +177,166 @@
   min-height: 20px;
   font-size: 0.9rem;
   font-weight: 500;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: transparent;
+  transition: all 0.3s ease;
 }
 
 .signal-validation.ok {
-  color: #15803d;
+  color: #059669;
+  background: #ecfdf5;
+  border-left: 3px solid #10b981;
 }
 
 .signal-validation.error {
-  color: #b91c1c;
+  color: #dc2626;
+  background: #fef2f2;
+  border-left: 3px solid #ef4444;
+}
+
+.signal-validation.disabled {
+  color: #6b7280;
+  background: #f9fafb;
+  border-left: 3px solid #d1d5db;
+}
+
+.signal-help-section {
+  background: #f0f4ff;
+  border-left: 3px solid #4f46e5;
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+
+.signal-helper {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #4338ca;
+  line-height: 1.4;
+}
+
+.signal-examples-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.signal-examples-label {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #4b5563;
+}
+
+.signal-examples {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.signal-example {
+  border: 1.5px solid #e0e7ff;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  color: #3730a3;
+  transition: all 0.2s ease;
+  user-select: none;
+  position: relative;
+}
+
+.signal-example:hover {
+  background: #eef2ff;
+  border-color: #c7d2fe;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+}
+
+.signal-example:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(79, 70, 229, 0.1);
+}
+
+.signal-example::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  background: #e0e7ff;
+  border-radius: 6px;
+  z-index: -1;
+  transition: height 0.3s ease;
+}
+
+.signal-example:hover::before {
+  height: 100%;
+}
+
+.signal-actions-row {
+  display: grid;
+  gap: 10px;
+}
+
+.signal-clear {
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.signal-clear:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .signal-input-card {
+    padding: 10px;
+  }
+
+  .signal-examples {
+    gap: 4px;
+  }
+
+  .signal-example {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+
+  .signal-expression {
+    font-size: 0.9rem;
+    padding: 8px 10px;
+  }
+
+  .signal-status-icon {
+    font-size: 1.2rem;
+    min-width: 24px;
+    height: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .signal-examples {
+    gap: 4px;
+  }
+
+  .signal-example {
+    flex: 0 1 calc(50% - 2px);
+    padding: 6px 8px;
+    font-size: 0.75rem;
+  }
+
+  .signal-expression {
+    font-size: 0.85rem;
+  }
+
+  .signal-helper {
+    font-size: 0.8rem;
+  }
 }

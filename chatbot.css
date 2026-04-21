@@ -88,19 +88,21 @@
 .chat-messages {
   background: #F8FAFC;
   overflow-y: auto;
-  padding: 14px;
+  padding: 18px 16px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
 }
 
 .chat-msg {
-  max-width: 82%;
-  border-radius: 14px;
-  padding: 9px 11px;
-  font-size: 0.92rem;
-  line-height: 1.4;
-  white-space: pre-wrap;
+  max-width: 76%;
+  border-radius: 20px;
+  padding: 12px 15px;
+  font-size: 0.98rem;
+  line-height: 1.7;
+  white-space: normal;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+  animation: chat-message-in 180ms ease-out;
 }
 
 .chat-msg.user {
@@ -108,13 +110,120 @@
   background: #4F46E5;
   color: #fff;
   border-bottom-right-radius: 4px;
+  white-space: pre-wrap;
 }
 
 .chat-msg.ai {
   align-self: flex-start;
-  background: #E5E7EB;
+  background: #f6f8fb;
   color: #111827;
   border-bottom-left-radius: 4px;
+  border: 1px solid #dde6ef;
+  overflow: visible;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.chat-msg.ai h1,
+.chat-msg.ai h2,
+.chat-msg.ai h3,
+.chat-msg.ai h4 {
+  margin: 0 0 10px;
+  line-height: 1.35;
+  color: #0f172a;
+}
+
+.chat-msg.ai h1 {
+  font-size: 1.1rem;
+}
+
+.chat-msg.ai h2 {
+  font-size: 1.03rem;
+}
+
+.chat-msg.ai h3,
+.chat-msg.ai h4 {
+  font-size: 0.98rem;
+}
+
+.chat-msg.ai p,
+.chat-msg.ai ul,
+.chat-msg.ai ol,
+.chat-msg.ai pre,
+.chat-msg.ai blockquote {
+  margin: 0 0 11px;
+}
+
+.chat-msg.ai p:last-child,
+.chat-msg.ai ul:last-child,
+.chat-msg.ai ol:last-child,
+.chat-msg.ai pre:last-child,
+.chat-msg.ai blockquote:last-child {
+  margin-bottom: 0;
+}
+
+.chat-msg.ai ul,
+.chat-msg.ai ol {
+  padding-left: 1.2rem;
+}
+
+.chat-msg.ai li {
+  margin: 5px 0;
+}
+
+.chat-msg.ai strong {
+  color: #0f172a;
+  font-weight: 650;
+}
+
+.chat-msg.ai a {
+  color: #1d4ed8;
+  text-decoration-thickness: 1.5px;
+}
+
+.chat-msg.ai blockquote {
+  border-left: 3px solid #94a3b8;
+  padding-left: 10px;
+  color: #334155;
+}
+
+.chat-msg.ai code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: 0.88em;
+  background: #e2e8f0;
+  color: #0f172a;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.chat-msg.ai pre {
+  background: #0f172a;
+  color: #f8fafc;
+  border-radius: 10px;
+  padding: 10px;
+  overflow-x: auto;
+}
+
+.chat-msg.ai pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.chat-msg.ai .MathJax {
+  font-size: 1.02em;
+}
+
+@keyframes chat-message-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .chat-msg.typing {

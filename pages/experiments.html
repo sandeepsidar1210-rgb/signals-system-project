@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
   <link rel="stylesheet" href="../chatbot.css">
+  <link rel="stylesheet" href="experiments.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 </head>
 <body data-page="experiments">
@@ -22,36 +23,54 @@
     </section>
 
     <section class="experiment-grid">
-      <article class="experiment-card">
-        <h3>Even/Odd of sin(t)</h3>
-        <p>Loads decomposition with sine input to show that sine is odd and even part tends to zero.</p>
-        <div class="formula">x(t) = sin(t)</div>
-        <a class="btn btn-primary" href="decomposition.html?exp=odd-sine">Run Experiment</a>
+      <article class="experiment-card" data-experiment="sine">
+        <h3>sin(t) - Even/Odd Decomposition</h3>
+        <p>Explore how a sine wave decomposes into even and odd components. Sine is a purely odd function.</p>
+        <div class="formula">$x(t) = \sin(t)$</div>
+        <button class="btn btn-primary">Click to Explore →</button>
       </article>
 
-      <article class="experiment-card">
-        <h3>Convolution of Step and Impulse</h3>
-        <p>Demonstrates system response when a step signal is convolved with an impulse-like signal.</p>
-        <div class="formula">y(t) = x(t) * h(t)</div>
-        <a class="btn btn-primary" href="convolution.html?exp=step-impulse">Run Experiment</a>
+      <article class="experiment-card" data-experiment="step">
+        <h3>Step Signal Convolution</h3>
+        <p>See what happens when a step signal (sudden input) is convolved with an impulse. Models system response to sudden changes.</p>
+        <div class="formula">$y(t) = u(t) * h(t)$</div>
+        <button class="btn btn-primary">Click to Explore →</button>
       </article>
 
-      <article class="experiment-card">
-        <h3>Time Shift and Scaling Demo</h3>
-        <p>Loads operations with visible shift and amplitude scaling to inspect waveform transformation step-by-step.</p>
-        <div class="formula">y(t) = A x(t - t0)</div>
-        <a class="btn btn-primary" href="operations.html?exp=shift-scale">Run Experiment</a>
+      <article class="experiment-card" data-experiment="shift-scale">
+        <h3>Time Shift & Amplitude Scaling</h3>
+        <p>Observe how delaying a signal and changing its amplitude affects the waveform. Fundamental operations in signal processing.</p>
+        <div class="formula">$y(t) = A \cdot x(t - t_0)$</div>
+        <button class="btn btn-primary">Click to Explore →</button>
       </article>
     </section>
+
+    <section id="experiment-results"></section>
   </main>
 
   <div id="footer-slot"></div>
   <div id="chatbot-slot"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      },
+      startup: {
+        typeset: false
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <script src="../script.js"></script>
   <script src="../js/experiments.js"></script>
+  <script src="../js/experimentsViewer.js"></script>
   <script src="../js/config.js"></script>
   <script src="../js/chatbot.js"></script>
 </body>

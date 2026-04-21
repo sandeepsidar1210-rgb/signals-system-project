@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
     reset: document.getElementById('reset-btn')
   };
   let customSignalInput = null;
+  let analysisPanel = null;
+  let guidedLearning = null; // Guided learning mode instance
   let shiftAnimationId = null;
   let scaleAnimationId = null;
 
@@ -148,6 +150,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (formulaBox) formulaBox.textContent = liveFormula();
     renderExplanation();
 
+    // Render auto analysis panel for the modified signal
+    if (analysisPanel) {
+      analysisPanel.render(controls.baseType.value, times, transformed, frequency);
+    }
+
     setTutorContext({
       page: 'Operations',
       baseType: controls.baseType.value,
@@ -190,11 +197,28 @@ document.addEventListener('DOMContentLoaded', () => {
   if (controls.exportPdf) controls.exportPdf.addEventListener('click', () => exportGraphPdf('operations-plot', 'Signal Operations', liveFormula()));
 
   (async () => {
+    // Initialize analysis panel
+    analysisPanel = new SignalAnalysisPanel('auto-analysis-panel');
+    
+    // Initialize guided learning mode
+    guidedLearning = new GuidedLearningMode('guided-learning-container', 'operations');
+    
+    // Set up guided learning button
+    const guidedLearningBtn = document.getElementById('guided-learning-btn');
+    if (guidedLearningBtn) {
+      guidedLearningBtn.addEventListener('click', () => {
+        if (guidedLearning && !guidedLearning.isActive) {
+          guidedLearning.start('operations');
+        }
+      });
+    }
+    
     customSignalInput = await createSignalInput({
       containerId: 'custom-signal-slot',
       title: 'Custom Signal Input',
       enabledByDefault: false,
       initialExpression: 'sin(t)',
+      linkedControlIds: ['base-type'],
       onChange: render
     });
     applyExperimentPreset();

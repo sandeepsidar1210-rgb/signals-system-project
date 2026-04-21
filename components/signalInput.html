@@ -9,26 +9,40 @@
   </div>
 
   <div class="signal-input-body" hidden>
-    <label class="signal-label">Enter Signal x(t)</label>
-    <input
-      type="text"
-      class="signal-expression"
-      placeholder="e.g. sin(t), t^2, exp(-t), sin(2*t)+cos(t)"
-      value="sin(t)"
-    >
+    <div class="signal-input-group">
+      <label class="signal-label">Enter Signal x(t)</label>
+      <div class="signal-input-wrapper">
+        <input
+          type="text"
+          class="signal-expression"
+          placeholder="e.g. sin(t), t^2, exp(-t), sqrt(t)"
+          value="sin(t)"
+        >
+        <span class="signal-status-icon">⚠️</span>
+      </div>
+      <p class="signal-validation">Custom signal is disabled.</p>
+    </div>
 
-    <p class="signal-helper">Use 't' as variable. Supported: sin, cos, exp, ^, +, - , *</p>
+    <div class="signal-help-section">
+      <p class="signal-helper"><strong>Syntax:</strong> Use 't' as variable. Supported functions: sin, cos, tan, abs, exp, sqrt, log, ^, +, −, *, /</p>
+    </div>
 
-    <div class="signal-actions-row">
-      <button type="button" class="btn btn-outline signal-clear">Clear</button>
+    <div class="signal-examples-section">
+      <p class="signal-examples-label">Quick Examples:</p>
       <div class="signal-examples">
         <button type="button" class="signal-example" data-example="sin(t)">sin(t)</button>
+        <button type="button" class="signal-example" data-example="cos(t)">cos(t)</button>
         <button type="button" class="signal-example" data-example="t^2">t^2</button>
         <button type="button" class="signal-example" data-example="exp(-t)">exp(-t)</button>
+        <button type="button" class="signal-example" data-example="sqrt(abs(t))">sqrt(abs(t))</button>
         <button type="button" class="signal-example" data-example="sin(2*t)+cos(t)">sin(2*t)+cos(t)</button>
+        <button type="button" class="signal-example" data-example="1/(1+t^2)">1/(1+t^2)</button>
+        <button type="button" class="signal-example" data-example="sin(t)*exp(-0.5*t)">sin(t)*exp(-0.5*t)</button>
       </div>
     </div>
 
-    <p class="signal-validation">Custom signal is disabled.</p>
+    <div class="signal-actions-row">
+      <button type="button" class="btn btn-outline signal-clear">Clear Input</button>
+    </div>
   </div>
 </section>

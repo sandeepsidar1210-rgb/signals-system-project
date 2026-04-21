@@ -14,48 +14,164 @@
 <body data-page="home">
   <div id="navbar-slot"></div>
 
-  <main class="container">
-    <section class="hero">
-      <span class="badge">Engineering Virtual Lab</span>
-      <h1>Signal Analysis Virtual Lab</h1>
-      <p>Interactive Learning for Signals and Systems. Explore generation, transformations, decomposition, and convolution in one clear academic workspace.</p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="pages/signalgeneration.html">Start Exploring</a>
+  <div class="home-bg-layer" aria-hidden="true">
+    <span class="home-bg-blob home-bg-blob-a"></span>
+    <span class="home-bg-blob home-bg-blob-b"></span>
+    <span class="home-bg-blob home-bg-blob-c"></span>
+  </div>
+
+  <main class="home-main home-shell">
+    <section class="home-hero">
+      <div class="container home-hero-inner">
+        <div class="home-hero-content reveal-on-scroll">
+          <span class="badge">Engineering Virtual Lab</span>
+          <h1>Explore <span class="home-gradient-word">Signals</span>, Understand <span class="home-gradient-word">Systems</span></h1>
+          <p>A premium interactive lab for Signals and Systems. Learn through live visuals, guided workflows, AI-powered explanation, and experiment-first exploration.</p>
+          <div class="cta-row home-cta-row">
+            <a class="btn btn-primary home-cta" href="pages/signalgeneration.html">Start Exploring</a>
+            <a class="btn btn-outline" href="pages/experiments.html">View Experiments</a>
+          </div>
+          <div class="home-metrics" aria-label="Platform highlights">
+            <div class="home-metric"><strong>6</strong><span>Modules</span></div>
+            <div class="home-metric"><strong>Live</strong><span>Graphs</span></div>
+            <div class="home-metric"><strong>AI</strong><span>Powered</span></div>
+          </div>
+        </div>
+
+        <div class="home-hero-visual reveal-on-scroll" aria-hidden="true">
+          <div class="hero-visual-card floating-card">
+            <div class="hero-visual-head">
+              <span>Signal Preview</span>
+              <span id="hero-signal-label">Sine Wave</span>
+            </div>
+            <svg id="hero-wave-svg" class="hero-wave-svg" viewBox="0 0 800 300" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="heroWaveGradient" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#22c55e" />
+                  <stop offset="50%" stop-color="#4F46E5" />
+                  <stop offset="100%" stop-color="#06B6D4" />
+                </linearGradient>
+              </defs>
+              <g class="hero-wave-grid">
+                <line x1="0" y1="150" x2="800" y2="150"></line>
+                <line x1="0" y1="75" x2="800" y2="75"></line>
+                <line x1="0" y1="225" x2="800" y2="225"></line>
+              </g>
+              <path id="hero-wave-path" d="" fill="none" stroke="url(#heroWaveGradient)" stroke-width="5" stroke-linecap="round"></path>
+            </svg>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section>
-      <h2 class="section-title">Virtual Lab Modules</h2>
-      <div class="feature-grid">
-        <a class="feature-card" href="pages/signalgeneration.html">
-          <div class="feature-icon">SG</div>
-          <h3>Signal Generation</h3>
-          <p>Create sine, step, and ramp signals with real-time controls and high-quality graphing.</p>
-        </a>
-
-        <a class="feature-card" href="pages/operations.html">
-          <div class="feature-icon">OP</div>
-          <h3>Signal Operations</h3>
-          <p>Apply amplitude scaling, time shift, and reversal while comparing original and transformed signals.</p>
-        </a>
-
-        <a class="feature-card" href="pages/decomposition.html">
-          <div class="feature-icon">EO</div>
-          <h3>Even and Odd Decomposition</h3>
-          <p>Break a signal into even and odd components and inspect each contribution visually.</p>
-        </a>
-
-        <a class="feature-card" href="pages/convolution.html">
-          <div class="feature-icon">CV</div>
-          <h3>Convolution</h3>
-          <p>Analyze system response by convolving two input signals and observing the resulting waveform.</p>
-        </a>
-
-        <a class="feature-card" href="pages/experiments.html">
-          <div class="feature-icon">EX</div>
+    <section class="home-highlights container reveal-on-scroll">
+      <h2 class="section-title home-title">Feature Highlights</h2>
+      <div class="home-highlight-grid">
+        <article class="home-highlight-card">
+          <div class="home-highlight-icon">📈</div>
+          <h3>Interactive Graphs</h3>
+          <p>Real-time plotting with zoom, pan, and precise waveform reading.</p>
+        </article>
+        <article class="home-highlight-card">
+          <div class="home-highlight-icon">🤖</div>
+          <h3>AI Tutor</h3>
+          <p>Context-aware guidance with mathematical explanations and intuition.</p>
+        </article>
+        <article class="home-highlight-card">
+          <div class="home-highlight-icon">🧭</div>
+          <h3>Guided Learning</h3>
+          <p>Structured lessons with steps, checks, and result interpretation.</p>
+        </article>
+        <article class="home-highlight-card">
+          <div class="home-highlight-icon">🧪</div>
           <h3>Experiments</h3>
+          <p>Quick prebuilt scenarios for classroom demos and self-practice.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="home-modules container reveal-on-scroll">
+      <h2 class="section-title home-title">Virtual Lab Modules</h2>
+      <div class="home-module-grid">
+        <article class="home-module-card">
+          <div class="home-module-top">
+            <span class="home-module-tag tag-sg">SG</span>
+            <h3>Signal Generation</h3>
+          </div>
+          <p>Create sine, step, and ramp signals with real-time controls and high-quality graphing.</p>
+          <a class="home-module-link" href="pages/signalgeneration.html">Open →</a>
+        </article>
+
+        <article class="home-module-card">
+          <div class="home-module-top">
+            <span class="home-module-tag tag-op">OP</span>
+            <h3>Signal Operations</h3>
+          </div>
+          <p>Apply amplitude scaling, time shift, and reversal while comparing original and transformed signals.</p>
+          <a class="home-module-link" href="pages/operations.html">Open →</a>
+        </article>
+
+        <article class="home-module-card">
+          <div class="home-module-top">
+            <span class="home-module-tag tag-eo">EO</span>
+            <h3>Even and Odd Decomposition</h3>
+          </div>
+          <p>Break a signal into even and odd components and inspect each contribution visually.</p>
+          <a class="home-module-link" href="pages/decomposition.html">Open →</a>
+        </article>
+
+        <article class="home-module-card">
+          <div class="home-module-top">
+            <span class="home-module-tag tag-cv">CV</span>
+            <h3>Convolution</h3>
+          </div>
+          <p>Analyze system response by convolving two input signals and observing the resulting waveform.</p>
+          <a class="home-module-link" href="pages/convolution.html">Open →</a>
+        </article>
+
+        <article class="home-module-card">
+          <div class="home-module-top">
+            <span class="home-module-tag tag-ex">EX</span>
+            <h3>Experiments</h3>
+          </div>
           <p>Launch one-click guided experiments for common teaching demos and compare outcomes quickly.</p>
-        </a>
+          <a class="home-module-link" href="pages/experiments.html">Open →</a>
+        </article>
+
+        <article class="home-module-card">
+          <div class="home-module-top">
+            <span class="home-module-tag tag-ty">TY</span>
+            <h3>Test Yourself</h3>
+          </div>
+          <p>Take a short self-assessment with MCQs, graph-based questions, and a final score out of 10.</p>
+          <a class="home-module-link" href="pages/test-yourself.html">Open →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="home-cta-band reveal-on-scroll">
+      <div class="container">
+        <div class="home-cta-panel">
+          <h2>Ready to Explore Signals and Systems?</h2>
+          <p>Start learning with interactive graphs, AI guidance, and real-time experiments.</p>
+          <div class="home-cta-actions">
+            <a class="btn btn-primary" href="pages/signalgeneration.html">Start Learning</a>
+            <a class="btn btn-outline" href="pages/experiments.html">Try Experiments</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-footer-band reveal-on-scroll">
+      <div class="container home-footer-band-inner">
+        <div>
+          <h3>Signal Analysis Virtual Lab</h3>
+          <p>A polished interactive platform for visual learning, concept mastery, and experimentation in Signals and Systems.</p>
+        </div>
+        <div class="home-footer-meta">
+          <p><strong>Author:</strong> Sandeep</p>
+          <p><strong>Built For:</strong> Academic Signal Processing Learning</p>
+        </div>
       </div>
     </section>
   </main>
@@ -63,9 +179,25 @@
   <div id="footer-slot"></div>
   <div id="chatbot-slot"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      },
+      startup: {
+        typeset: false
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <script src="script.js"></script>
+  <script src="js/homepage.js"></script>
   <script src="js/config.js"></script>
   <script src="js/chatbot.js"></script>
 </body>

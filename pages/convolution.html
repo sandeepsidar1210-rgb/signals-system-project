@@ -9,6 +9,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
   <link rel="stylesheet" href="../components/signalInput.css">
+  <link rel="stylesheet" href="../components/graph/interactiveGraph.css">
+  <link rel="stylesheet" href="../components/guidedLearning/guidedLearningMode.css">
   <link rel="stylesheet" href="../components/explanationPanel/explanationPanel.css">
   <link rel="stylesheet" href="../chatbot.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -90,6 +92,7 @@
             <button class="btn btn-outline" id="animate-convolution" type="button">Animate Convolution</button>
             <button class="btn btn-outline" id="download-png" type="button">Download PNG</button>
             <button class="btn btn-outline" id="export-pdf" type="button">Export PDF</button>
+            <button class="btn btn-outline" id="guided-learning-btn" type="button" title="Start step-by-step learning guide">📚 Guided Learning</button>
           </div>
         </div>
       </div>
@@ -104,6 +107,8 @@
     </section>
 
     <section class="card exp-panel" id="convolution-explanation"></section>
+
+    <div id="guided-learning-container"></div>
 
     <section class="card theory-panel">
       <h2>Theory and Formula Guide</h2>
@@ -136,11 +141,28 @@
   <div id="footer-slot"></div>
   <div id="chatbot-slot"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      },
+      startup: {
+        typeset: false
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <script src="../components/signalInput.js"></script>
   <script src="../components/graph/graphUtils.js"></script>
+  <script src="../components/graph/interactiveGraphUtils.js"></script>
   <script src="../components/explanationPanel/explanationPanel.js"></script>
+  <script src="../components/guidedLearning/guidedLearningMode.js"></script>
   <script src="../script.js"></script>
   <script src="../js/convolution.js"></script>
   <script src="../js/config.js"></script>
