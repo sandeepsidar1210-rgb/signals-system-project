@@ -153,63 +153,63 @@ function detectTopic(query, preferredTopic = '') {
       regex: /(fourier\s+transform|fft|dtft|ctft|frequency\s*domain|spectrum|transform)/,
       definition: 'The Fourier transform represents a signal as a weighted sum of complex sinusoids across frequency.',
       explanation: 'It reveals which frequencies are present and with what magnitude/phase. In discrete form, DFT/FFT gives sampled frequency bins.',
-      example: 'For \(x(t)=\cos(2\pi f_0 t)\), the spectrum has impulses at \(\pm f_0\).'
+      example: String.raw`For \(x(t)=\cos(2\pi f_0 t)\), the spectrum has impulses at \(\pm f_0\).`
     },
     {
       key: 'periodic-signal',
       regex: /(periodic\s*signal|periodicity|fundamental\s*period|repeat)/,
       definition: 'A periodic signal repeats itself after a fixed period.',
       explanation: 'Periodic signals are often analyzed using Fourier series because repetition creates harmonic structure.',
-      example: 'If \(x(t+T)=x(t)\), then \(T\) is the period and the fundamental frequency is \(1/T\).'
+      example: String.raw`If \(x(t+T)=x(t)\), then \(T\) is the period and the fundamental frequency is \(1/T\).`
     },
     {
       key: 'laplace',
       regex: /(laplace|s-domain|transfer\s*function|pole|zero|roc)/,
-      definition: 'The Laplace transform maps time-domain signals to the complex \(s\)-domain.',
+      definition: String.raw`The Laplace transform maps time-domain signals to the complex \(s\)-domain.`,
       explanation: 'It simplifies differential equations into algebra and helps analyze stability via poles and region of convergence.',
-      example: 'For an LTI system, \(H(s)=Y(s)/X(s)\); poles in left-half plane imply BIBO-stable continuous-time behavior.'
+      example: String.raw`For an LTI system, \(H(s)=Y(s)/X(s)\); poles in left-half plane imply BIBO-stable continuous-time behavior.`
     },
     {
       key: 'ztransform',
       regex: /(z-?transform|z\s*domain|difference\s*equation|discrete\s*stability)/,
       definition: 'The Z-transform is the discrete-time counterpart of Laplace transform.',
       explanation: 'It converts difference equations into algebraic forms and uses pole locations relative to the unit circle for stability.',
-      example: 'If all poles of \(H(z)\) are inside \(|z|<1\), the discrete-time LTI system is BIBO-stable.'
+      example: String.raw`If all poles of \(H(z)\) are inside \(|z|<1\), the discrete-time LTI system is BIBO-stable.`
     },
     {
       key: 'sampling',
       regex: /(sampling|nyquist|alias|reconstruct|shannon)/,
       definition: 'Sampling converts continuous-time signals into discrete-time sequences.',
-      explanation: 'To avoid aliasing, sample above Nyquist rate: \(f_s > 2f_{max}\). Lower rates fold high frequencies into lower ones.',
-      example: 'If \(f_{max}=1\text{kHz}\), choose \(f_s>2\text{kHz}\), typically with margin (e.g., 2.5 kHz or 4 kHz).'
+      explanation: String.raw`To avoid aliasing, sample above Nyquist rate: \(f_s > 2f_{max}\). Lower rates fold high frequencies into lower ones.`,
+      example: String.raw`If \(f_{max}=1\text{kHz}\), choose \(f_s>2\text{kHz}\), typically with margin (e.g., 2.5 kHz or 4 kHz).`
     },
     {
       key: 'convolution',
       regex: /(convolution|impulse\s*response|lti\s*system|h\(t\)|h\[n\])/,
       definition: 'Convolution gives the output of an LTI system from input and impulse response.',
       explanation: 'Compute overlap of a flipped-shifted response with the input: multiply and integrate/sum.',
-      example: '\(y(t)=\int x(\tau)h(t-\tau)d\tau\), and in discrete time \(y[n]=\sum_k x[k]h[n-k]\).'
+      example: String.raw`\(y(t)=\int x(\tau)h(t-\tau)d\tau\), and in discrete time \(y[n]=\sum_k x[k]h[n-k]\).`
     },
     {
       key: 'correlation',
       regex: /(correlation|autocorrelation|cross\s*correlation|similarity)/,
       definition: 'Correlation measures similarity between signals as one is shifted relative to the other.',
       explanation: 'It is used for delay estimation, detection, and feature matching.',
-      example: 'Autocorrelation \(R_{xx}(\tau)\) peaks at \(\tau=0\) for many energy signals.'
+      example: String.raw`Autocorrelation \(R_{xx}(\tau)\) peaks at \(\tau=0\) for many energy signals.`
     },
     {
       key: 'stability',
       regex: /(stability|causal|causality|bounded\s*input|bibo|unstable)/,
       definition: 'BIBO stability means every bounded input produces a bounded output.',
-      explanation: 'For LTI systems, continuous-time stability requires absolutely integrable \(h(t)\); discrete-time requires absolutely summable \(h[n]\).',
-      example: 'If \(\int_{-\infty}^{\infty}|h(t)|dt<\infty\), the CT system is BIBO-stable.'
+      explanation: String.raw`For LTI systems, continuous-time stability requires absolutely integrable \(h(t)\); discrete-time requires absolutely summable \(h[n]\).`,
+      example: String.raw`If \(\int_{-\infty}^{\infty}|h(t)|dt<\infty\), the CT system is BIBO-stable.`
     },
     {
       key: 'decomposition',
       regex: /(even|odd|decomposition|symmetry|x_e|x_o)/,
       definition: 'Any signal can be decomposed into even and odd parts.',
       explanation: 'Even part captures symmetric content; odd part captures antisymmetric content.',
-      example: '\(x_e(t)=\frac{x(t)+x(-t)}{2},\;x_o(t)=\frac{x(t)-x(-t)}{2}\).'
+      example: String.raw`\(x_e(t)=\frac{x(t)+x(-t)}{2},\;x_o(t)=\frac{x(t)-x(-t)}{2}\).`
     },
     {
       key: 'system-properties',
@@ -223,7 +223,7 @@ function detectTopic(query, preferredTopic = '') {
       regex: /(energy\s*signal|power\s*signal|average\s*power|finite\s*energy)/,
       definition: 'Energy signals have finite total energy; power signals have finite nonzero average power.',
       explanation: 'A signal is usually classified as one or the other (except zero signal edge case).',
-      example: '\(E=\int |x(t)|^2dt\) finite implies energy signal; periodic sinusoids are typically power signals.'
+      example: String.raw`\(E=\int |x(t)|^2dt\) finite implies energy signal; periodic sinusoids are typically power signals.`
     }
   ];
 
