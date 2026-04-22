@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Yourself | Signal Analysis Virtual Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../chatbot.css">
+  <link rel="stylesheet" href="test-yourself.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+</head>
+<body data-page="test-yourself">
+  <div id="navbar-slot"></div>
+
+  <main class="container">
+    <section class="hero quiz-hero">
+      <span class="badge">Self Assessment</span>
+      <h1>Test Yourself</h1>
+      <p>Answer mixed MCQ and graph-based questions. Your final score appears at the end as Score: X / 10.</p>
+    </section>
+
+    <section class="quiz-shell card">
+      <div class="quiz-topbar">
+        <div>
+          <p class="quiz-kicker" id="quiz-progress-text">Question 1 of 10</p>
+          <h2 id="quiz-title">Loading quiz...</h2>
+        </div>
+        <div class="quiz-score-pill" id="quiz-score-pill">Score: 0 / 10</div>
+      </div>
+
+      <div class="quiz-controls" aria-label="Quiz settings">
+        <label class="quiz-control-group" for="quiz-difficulty">
+          <span>Difficulty</span>
+          <select id="quiz-difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium" selected>Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </label>
+        <button class="btn btn-outline" id="quiz-new-set-btn" type="button">New Test</button>
+      </div>
+
+      <div class="quiz-progress-track" aria-hidden="true">
+        <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
+      </div>
+
+      <div id="quiz-screen" class="quiz-screen">
+        <section class="quiz-question-pane">
+          <div class="quiz-tag" id="quiz-type-tag">MCQ</div>
+          <div class="quiz-prompt" id="quiz-prompt"></div>
+          <div id="quiz-graph-slot" class="quiz-graph-slot"></div>
+        </section>
+
+        <section class="quiz-answer-pane">
+          <div class="quiz-options" id="quiz-options"></div>
+          <div class="quiz-feedback" id="quiz-feedback" aria-live="polite"></div>
+          <div class="quiz-actions">
+            <button class="btn btn-outline" id="quiz-reveal-btn" type="button">Check Answer</button>
+            <button class="btn btn-primary" id="quiz-next-btn" type="button" disabled>Next</button>
+          </div>
+        </section>
+      </div>
+
+      <section id="quiz-result" class="quiz-result" hidden>
+        <h2>Test Complete</h2>
+        <div class="quiz-final-score" id="quiz-final-score">Score: 0 / 10</div>
+        <p id="quiz-summary" class="quiz-summary"></p>
+        <div class="quiz-review" id="quiz-review"></div>
+        <div class="quiz-actions quiz-result-actions">
+          <button class="btn btn-primary" id="quiz-restart-btn" type="button">Retry Test</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div id="footer-slot"></div>
+  <div id="chatbot-slot"></div>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      },
+      startup: {
+        typeset: false
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="../script.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/test-yourself.js"></script>
+  <script src="../js/chatbot.js"></script>
+</body>
+</html>

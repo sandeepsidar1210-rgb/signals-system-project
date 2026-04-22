@@ -1,0 +1,360 @@
+/**
+ * Interactive Graph Styling
+ * Enhanced visualization for Plotly graphs with toggles and responsive design
+ */
+
+/* Plot Container */
+.plot {
+  width: 100%;
+  height: auto;
+  min-height: 500px;
+  margin: 1.5rem 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.plot:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Trace Toggles */
+.trace-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 1.5rem;
+  align-items: center;
+}
+
+.trace-toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  padding: 0.625rem 1rem;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 2px solid #e5e7eb;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: #374151;
+}
+
+.trace-toggle-label:hover {
+  border-color: #d1d5db;
+  background: #f3f4f6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.trace-toggle-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #d1d5db;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.trace-toggle-checkbox:checked {
+  background: #4f46e5;
+  border-color: #4f46e5;
+}
+
+.trace-toggle-checkbox:checked::before {
+  content: '✓';
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  position: absolute;
+}
+
+.trace-toggle-checkbox:hover {
+  border-color: #9ca3af;
+  box-shadow: 0 2px 6px rgba(79, 70, 229, 0.2);
+}
+
+.trace-toggle-checkbox:focus {
+  outline: 2px solid #4f46e5;
+  outline-offset: 2px;
+}
+
+.toggle-label-text {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+/* Trace-specific colors in toggles */
+.trace-toggle-label:has([data-trace-name="Original"]) {
+  border-left: 4px solid #4f46e5;
+}
+
+.trace-toggle-label:has([data-trace-name="Even"]) {
+  border-left: 4px solid #10b981;
+}
+
+.trace-toggle-label:has([data-trace-name="Odd"]) {
+  border-left: 4px solid #f59e0b;
+}
+
+.trace-toggle-label:has([data-trace-name="Modified signal"]) {
+  border-left: 4px solid #06b6d4;
+}
+
+/* Plot card - responsive */
+.plot-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.plot-card h2 {
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  color: #1f2937;
+}
+
+/* Stack plots for decomposition */
+.stack-plots {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.stack-plots .plot {
+  min-height: 400px;
+}
+
+/* Visibility controls row */
+.visibility-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.visibility-row label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  color: #374151;
+  user-select: none;
+  transition: color 0.3s ease;
+}
+
+.visibility-row label:hover {
+  color: #1f2937;
+}
+
+.visibility-row input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #d1d5db;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #ffffff;
+}
+
+.visibility-row input[type="checkbox"]:checked {
+  background: #4f46e5;
+  border-color: #4f46e5;
+}
+
+.visibility-row input[type="checkbox"]:checked::after {
+  content: '✓';
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* Formula display */
+.formula-live {
+  padding: 1rem;
+  background: #f0f4ff;
+  border-left: 4px solid #4f46e5;
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.95rem;
+  color: #4f46e5;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+/* Page Grid - responsive */
+.page-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.page-grid.decomposition-grid {
+  grid-template-columns: 1fr 3fr;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .page-grid {
+    grid-template-columns: 1fr 1.5fr;
+    gap: 1.5rem;
+  }
+
+  .page-grid.decomposition-grid {
+    grid-template-columns: 1fr 2fr;
+  }
+
+  .plot {
+    min-height: 450px;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-grid,
+  .page-grid.decomposition-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .plot {
+    min-height: 380px;
+  }
+
+  .trace-toggles {
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .trace-toggle-label {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+    flex: 0 1 calc(50% - 0.375rem);
+  }
+
+  .visibility-row {
+    gap: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .stack-plots {
+    gap: 1.5rem;
+  }
+
+  .stack-plots .plot {
+    min-height: 350px;
+  }
+
+  .formula-live {
+    font-size: 0.85rem;
+    padding: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .plot {
+    min-height: 320px;
+    margin: 1rem 0;
+  }
+
+  .trace-toggles {
+    gap: 0.5rem;
+    padding: 0.75rem;
+  }
+
+  .trace-toggle-label {
+    padding: 0.5rem;
+    font-size: 0.85rem;
+    flex: 0 1 100%;
+  }
+
+  .trace-toggle-checkbox {
+    width: 18px;
+    height: 18px;
+  }
+
+  .visibility-row {
+    gap: 0.75rem;
+    padding: 0.75rem;
+  }
+
+  .visibility-row label {
+    font-size: 0.9rem;
+  }
+
+  .formula-live {
+    font-size: 0.8rem;
+    padding: 0.75rem;
+  }
+
+  .page-grid h2 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Plotly toolbar enhancements */
+.modebar {
+  background: #f9fafb !important;
+  border-bottom: 1px solid #e5e7eb !important;
+}
+
+.modebar-btn {
+  color: #6b7280 !important;
+  transition: all 0.2s ease !important;
+}
+
+.modebar-btn:hover {
+  color: #4f46e5 !important;
+  background: #f0f4ff !important;
+  border-radius: 6px !important;
+}
+
+.modebar-btn.active {
+  color: #4f46e5 !important;
+  background: #e0e7ff !important;
+}
+
+/* Smooth transitions and animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.plot {
+  animation: fadeIn 0.4s ease;
+}
+
+.trace-toggles {
+  animation: fadeIn 0.5s ease;
+}

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal Operations | Signal Analysis Virtual Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../components/signalInput.css">
+  <link rel="stylesheet" href="../components/analysisPanel/analysisPanel.css">
+  <link rel="stylesheet" href="../components/graph/interactiveGraph.css">
+  <link rel="stylesheet" href="../components/guidedLearning/guidedLearningMode.css">
+  <link rel="stylesheet" href="../components/explanationPanel/explanationPanel.css">
+  <link rel="stylesheet" href="../chatbot.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.4.2/math.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+</head>
+<body data-page="operations">
+  <div id="navbar-slot"></div>
+
+  <main class="container">
+    <section class="hero">
+      <span class="badge">Signal Operations Tool</span>
+      <h1>Transform signals using core operations</h1>
+      <p>Apply amplitude scaling, time shifting, and time reversal to understand how transformations affect waveform behavior.</p>
+    </section>
+
+    <section class="page-grid">
+      <div class="card">
+        <h2>Controls</h2>
+        <div class="controls-grid">
+          <div class="control-row">
+            <label for="base-type">Base Signal</label>
+            <select id="base-type">
+              <option value="sine">Sine Wave</option>
+              <option value="step">Step Signal</option>
+              <option value="ramp">Ramp Signal</option>
+              <option value="impulse">Impulse Signal</option>
+              <option value="square">Square Wave</option>
+              <option value="triangular">Triangular Wave</option>
+              <option value="exponential">Exponential Signal</option>
+            </select>
+          </div>
+
+          <div class="control-row">
+            <div class="control-label">
+              <span>Amplitude</span>
+              <strong id="amp-value">1</strong>
+            </div>
+            <input type="range" id="amplitude" min="0.5" max="4" step="0.1" value="1">
+          </div>
+
+          <div class="control-row" id="freq-row">
+            <div class="control-label">
+              <span>Frequency (Hz)</span>
+              <strong id="freq-value">1</strong>
+            </div>
+            <input type="range" id="frequency" min="0.1" max="8" step="0.1" value="1">
+          </div>
+
+          <div class="control-row">
+            <div class="control-label">
+              <span>Scale A</span>
+              <strong id="scale-value">1</strong>
+            </div>
+            <input type="range" id="scale" min="-3" max="3" step="0.1" value="1">
+          </div>
+
+          <div class="control-row">
+            <div class="control-label">
+              <span>Shift t0</span>
+              <strong id="shift-value">0</strong>
+            </div>
+            <input type="range" id="shift" min="-3" max="3" step="0.1" value="0">
+          </div>
+
+          <div class="control-row">
+            <label><input type="checkbox" id="reverse"> Apply Time Reversal x(-t)</label>
+            <label><input type="checkbox" id="compare" checked> Compare with original</label>
+          </div>
+
+          <div id="custom-signal-slot"></div>
+
+          <div class="control-actions">
+            <button class="btn btn-primary" id="reset-btn">Reset</button>
+            <button class="btn btn-outline" id="animate-shift" type="button">Animate Shift</button>
+            <button class="btn btn-outline" id="animate-scale" type="button">Animate Scale</button>
+            <button class="btn btn-outline" id="download-png" type="button">Download PNG</button>
+            <button class="btn btn-outline" id="export-pdf" type="button">Export PDF</button>
+            <button class="btn btn-outline" id="guided-learning-btn" type="button" title="Start step-by-step learning guide">📚 Guided Learning</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card plot-card">
+        <h2>Original vs Modified</h2>
+        <div class="formula-live" id="operation-formula-live">y(t) = A x(t - t0)</div>
+        <div id="operations-plot" class="plot"></div>
+      </div>
+    </section>
+
+    <section class="card exp-panel" id="operations-explanation"></section>
+
+    <section id="auto-analysis-panel"></section>
+
+    <div id="guided-learning-container"></div>
+
+    <section class="card theory-panel">
+      <h2>Theory and Formula Guide</h2>
+      <div class="theory-layout">
+        <article class="theory-card">
+          <h3 class="theory-card-title">Amplitude Scaling</h3>
+          <div class="theory-box definition">Scaling changes the vertical magnitude of the signal without changing its time axis shape.</div>
+          <div class="theory-box formula">y(t) = A x(t)</div>
+          <div class="theory-box explanation">If |A| &gt; 1, the waveform grows. If 0 &lt; |A| &lt; 1, it shrinks. A negative A flips polarity.</div>
+        </article>
+
+        <article class="theory-card">
+          <h3 class="theory-card-title">Time Shift and Reversal</h3>
+          <div class="theory-box definition">Time operations move or mirror the waveform along the horizontal axis.</div>
+          <div class="theory-box formula">Shift: y(t) = x(t - t0)</div>
+          <div class="theory-box formula">Reverse: y(t) = x(-t)</div>
+          <div class="theory-box explanation">Positive t0 delays the signal, negative t0 advances it, and reversal mirrors it around t = 0.</div>
+        </article>
+
+        <article class="theory-card">
+          <h3 class="theory-card-title">Link to Decomposition</h3>
+          <div class="theory-box definition">Operation results can be split into symmetric and antisymmetric parts for deeper analysis.</div>
+          <div class="theory-box formula">x_e(t) = (x(t) + x(-t)) / 2</div>
+          <div class="theory-box formula">x_o(t) = (x(t) - x(-t)) / 2</div>
+          <div class="theory-box explanation">This helps interpret how each operation affects symmetry in the transformed signal.</div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-slot"></div>
+  <div id="chatbot-slot"></div>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      },
+      startup: {
+        typeset: false
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="../components/signalInput.js"></script>
+  <script src="../components/graph/graphUtils.js"></script>
+  <script src="../components/graph/interactiveGraphUtils.js"></script>
+  <script src="../components/explanationPanel/explanationPanel.js"></script>
+  <script src="../components/analysisPanel/analysisPanel.js"></script>
+  <script src="../components/guidedLearning/guidedLearningMode.js"></script>
+  <script src="../script.js"></script>
+  <script src="../js/operations.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/chatbot.js"></script>
+</body>
+</html>

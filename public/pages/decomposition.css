@@ -1,0 +1,10 @@
+/* Decomposition page specific layout tuning */
+.decomposition-grid {
+  grid-template-columns: minmax(340px, 400px) minmax(0, 1fr);
+}
+
+@media (max-width: 900px) {
+  .decomposition-grid {
+    grid-template-columns: 1fr;
+  }
+}
