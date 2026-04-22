@@ -1,145 +1,176 @@
-﻿# Signals and Systems Virtual Lab
+# Signals and Systems Virtual Lab 🎛️📈
 
-An interactive web project for learning core Signals and Systems concepts with visual simulations and guided explanations.
+<p align="center">
+	<img src="https://img.shields.io/badge/Node.js-18%2B-2F855A?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js 18+" />
+	<img src="https://img.shields.io/badge/Frontend-Interactive-2563EB?style=for-the-badge" alt="Interactive Frontend" />
+	<img src="https://img.shields.io/badge/Focus-Signals%20%26%20Systems-0F766E?style=for-the-badge" alt="Signals and Systems" />
+	<img src="https://img.shields.io/badge/Learning-Visual%20First-DC2626?style=for-the-badge" alt="Visual First Learning" />
+</p>
 
-## Features
+<p align="center">
+	An interactive, simulation-driven lab for learning <strong>Signals and Systems</strong> through visual experiments,
+	guided explanations, and hands-on signal analysis.
+</p>
 
-- Interactive signal experiments for convolution, decomposition, operations, and signal generation.
-- Guided learning components with dynamic graph behavior.
-- Built-in tutor/chat endpoint powered by Gemini API with a fallback mode.
-- Frontend and backend structure that supports local development and deployment.
+---
 
-## Project Structure
+## 📚 Table of Contents
 
-Key folders:
+- [Why This Project](#why-this-project)
+- [Feature Highlights](#feature-highlights)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Quick Start](#quick-start)
+- [Screenshot Gallery](#screenshot-gallery)
+- [Deployment](#deployment)
+- [Security Notes](#security-notes)
+- [Contributing](#contributing)
+- [License](#license)
 
-- `public/`: Static frontend assets served by Express.
-- `pages/`, `components/`, `js/`: Source files for feature pages and reusable UI logic.
-- `backend/`: Separate backend service (default port `5000`) for tutor APIs.
-- `server.js`: Main server (default port `3000`) that can serve frontend and API routes.
+## 🚀 Why This Project
 
-## Prerequisites
+Signals and Systems concepts become clearer when learners can manipulate and visualize signals directly. This project provides a virtual lab where students can:
 
-- Node.js 18+ (recommended)
+- 📊 Generate and inspect signals.
+- 🔁 Explore convolution and decomposition interactively.
+- 🧪 Test operations step-by-step with immediate visual feedback.
+- 🤖 Use a tutor/chat backend for guided support.
+
+## ✨ Feature Highlights
+
+- 🎯 Interactive modules: convolution, decomposition, operations, signal generation, experiments.
+- 🧩 Reusable UI system: graph components, explanation panels, guided learning blocks.
+- 🖥️ Two-server architecture: main app + optional tutor backend.
+- 🏫 Classroom-ready setup for local labs and lightweight deployment.
+
+## 🛠️ Tech Stack
+
+| Layer | Tools |
+| --- | --- |
+| Frontend | HTML, CSS, JavaScript |
+| Backend | Node.js, Express |
+| Optional AI | Gemini API |
+| Tooling | npm, VS Code tasks |
+
+## 🗂️ Project Structure
+
+| Path | Description |
+| --- | --- |
+| `public/` | Static frontend assets served by Express |
+| `pages/` | Topic pages (convolution, decomposition, operations, etc.) |
+| `components/` | Reusable UI blocks |
+| `js/` | Signal processing and page logic scripts |
+| `backend/` | Tutor/chat backend service |
+| `server.js` | Main app entry point |
+
+## ⚡ Quick Start
+
+### 1. ✅ Prerequisites
+
+- Node.js 18+
 - npm
 
-## Environment Variables
-
-Create `.env` files as needed:
-
-- `project/.env` for the main server.
-- `project/backend/.env` for the backend server.
-
-Supported variables:
-
-- `PORT`: Server port (optional).
-- `GEMINI_API_KEY`: API key for Gemini-powered tutor responses (optional, fallback mode works without it).
-- `NODE_ENV`: Set to `production` in production environments.
-
-## Install Dependencies
-
-From `project/`:
+### 2. 📦 Install Dependencies
 
 ```bash
+# from project/
+npm install
+
+# from project/backend/
 npm install
 ```
 
-From `project/backend/`:
+### 3. ▶️ Run the Main App
 
 ```bash
-npm install
-```
-
-## Run Locally
-
-### Main app server (serves frontend)
-
-From `project/`:
-
-```bash
+# from project/
 npm start
 ```
 
-Default URL: `http://localhost:3000`
+Main app: http://localhost:3000
 
-### Backend server
-
-From `project/backend/`:
+### 4. 🤖 Run the Tutor Backend
 
 ```bash
+# from project/backend/
 npm start
 ```
 
-Default URL: `http://localhost:5000`
+Backend API: http://localhost:5000
 
-In VS Code, you can also use the provided task: `Start Tutor Backend`.
+You can also run the VS Code task: **Start Tutor Backend**.
 
-## Screenshots
+## 🖼️ Screenshot Gallery
 
-Add screenshots to a folder such as `project/assets/screenshots/` and reference them here.
+These screenshots highlight key parts of the platform experience.
 
-Example:
+Using images from the `screenshot/` folder:
 
-```md
-![Home Page](assets/screenshots/home.png)
-![Convolution Lab](assets/screenshots/convolution.png)
-![Operations Lab](assets/screenshots/operations.png)
+- `home.png`
+- `ai-tutor.png`
+- `convolution-lab.png`
+- `test-yourself.png`
+
+<table>
+	<tr>
+		<td width="50%" valign="top">
+			<img src="screenshot/home.png" alt="Home dashboard with hero section and signal preview" width="100%" />
+			<p><strong>🏠 Home Experience</strong><br/>Beautiful landing page with navigation, hero CTA, and live signal preview.</p>
+		</td>
+		<td width="50%" valign="top">
+			<img src="screenshot/ai-tutor.png" alt="AI Tutor chat interface explaining convolution" width="100%" />
+			<p><strong>🤖 AI Tutor</strong><br/>In-context assistant for conceptual explanations and graph-based guidance.</p>
+		</td>
+	</tr>
+	<tr>
+		<td width="50%" valign="top">
+			<img src="screenshot/convolution-lab.png" alt="Convolution lab with custom signals and output graph" width="100%" />
+			<p><strong>🌊 Convolution Lab</strong><br/>Custom signal inputs, parameter controls, and multi-plot output visualization.</p>
+		</td>
+		<td width="50%" valign="top">
+			<img src="screenshot/test-yourself.png" alt="Self assessment interface with MCQ and scoring" width="100%" />
+			<p><strong>📝 Self Assessment</strong><br/>Quiz-based learning with progress, difficulty, and score tracking.</p>
+		</td>
+	</tr>
+</table>
+
+## 🚢 Deployment
+
+### Option A: Single Service 🌐
+
+1. Deploy from `project/`.
+2. Install dependencies.
+3. Set runtime environment variables.
+4. Run `npm start`.
+
+### Option B: Split Frontend + Backend 🔀
+
+1. Deploy frontend assets from `project/`.
+2. Deploy backend from `project/backend/`.
+3. Configure frontend API base URL for deployed backend.
+
+## 🔐 Security Notes
+
+- 🔒 Never commit real secrets in `.env` files.
+- 🧰 Keep credentials in local env vars or platform secret stores.
+- 📝 Use placeholders in docs.
+
+Example environment variables:
+
+```env
+PORT=<app_port>
+NODE_ENV=production
+GEMINI_API_KEY=<optional_api_key>
 ```
 
-Tip: Use consistent image sizes for cleaner GitHub rendering.
+## 🤝 Contributing
 
-## Deployment
+- 🎨 Improve visualizations and learning flow.
+- 🧠 Add new signal experiments.
+- 📘 Expand guided learning explanations.
 
-### Option 1: Single server deployment
+PRs are welcome.
 
-Use this if you run the app through `project/server.js`.
+## 📄 License
 
-1. Install dependencies:
-
-	```bash
-	npm install
-	```
-
-2. Set environment variables on your host:
-
-	- `NODE_ENV=production`
-	- `PORT=<your_port>`
-	- `GEMINI_API_KEY=<your_key>` (optional)
-
-3. Start the app:
-
-	```bash
-	npm start
-	```
-
-### Option 2: Split frontend and backend deployment
-
-Use this if the backend is hosted separately from static frontend assets.
-
-1. Deploy frontend from `project/public` (or through your chosen static hosting flow).
-2. Deploy backend service from `project/backend`:
-
-	```bash
-	cd backend
-	npm install
-	npm start
-	```
-
-3. Set backend environment variables (`NODE_ENV`, `PORT`, `GEMINI_API_KEY`) in your hosting platform.
-4. Ensure frontend API calls point to your deployed backend URL.
-
-## Contributors
-
-Add contributors here:
-
-- Sandeep Sidar (project owner)
-- Add contributor names as the team grows
-
-## Notes
-
-- In production, secrets should be provided through platform environment variables.
-- If `GEMINI_API_KEY` is not set, chat routes use fallback tutor responses.
-
-## License
-
-Add your preferred license here.
+Add your preferred license text (MIT is a common choice).
