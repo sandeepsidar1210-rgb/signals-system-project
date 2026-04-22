@@ -174,4 +174,3 @@ PRs are welcome.
 ## 📄 License
 
 Add your preferred license text (MIT is a common choice).
-Add your preferred license text (MIT is a common choice).
