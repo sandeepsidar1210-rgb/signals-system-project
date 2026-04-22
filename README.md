@@ -1,15 +1,15 @@
-# Signals and Systems Virtual Lab 🎛️📈
+﻿# Signals and Systems Virtual Lab 🎛️📈
 
 <p align="center">
-	<img src="https://img.shields.io/badge/Node.js-18%2B-2F855A?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js 18+" />
-	<img src="https://img.shields.io/badge/Frontend-Interactive-2563EB?style=for-the-badge" alt="Interactive Frontend" />
-	<img src="https://img.shields.io/badge/Focus-Signals%20%26%20Systems-0F766E?style=for-the-badge" alt="Signals and Systems" />
-	<img src="https://img.shields.io/badge/Learning-Visual%20First-DC2626?style=for-the-badge" alt="Visual First Learning" />
+  <img src="https://img.shields.io/badge/Node.js-18%2B-2F855A?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js 18+" />
+  <img src="https://img.shields.io/badge/Frontend-Interactive-2563EB?style=for-the-badge" alt="Interactive Frontend" />
+  <img src="https://img.shields.io/badge/Focus-Signals%20%26%20Systems-0F766E?style=for-the-badge" alt="Signals and Systems" />
+  <img src="https://img.shields.io/badge/Learning-Visual%20First-DC2626?style=for-the-badge" alt="Visual First Learning" />
 </p>
 
 <p align="center">
-	An interactive, simulation-driven lab for learning <strong>Signals and Systems</strong> through visual experiments,
-	guided explanations, and hands-on signal analysis.
+  An interactive, simulation-driven lab for learning <strong>Signals and Systems</strong> through visual experiments,
+  guided explanations, and hands-on signal analysis.
 </p>
 
 ---
@@ -112,26 +112,26 @@ Using images from the `screenshot/` folder:
 - `test-yourself.png`
 
 <table>
-	<tr>
-		<td width="50%" valign="top">
-			<img src="screenshot/home.png" alt="Home dashboard with hero section and signal preview" width="100%" />
-			<p><strong>🏠 Home Experience</strong><br/>Beautiful landing page with navigation, hero CTA, and live signal preview.</p>
-		</td>
-		<td width="50%" valign="top">
-			<img src="screenshot/ai-tutor.png" alt="AI Tutor chat interface explaining convolution" width="100%" />
-			<p><strong>🤖 AI Tutor</strong><br/>In-context assistant for conceptual explanations and graph-based guidance.</p>
-		</td>
-	</tr>
-	<tr>
-		<td width="50%" valign="top">
-			<img src="screenshot/convolution-lab.png" alt="Convolution lab with custom signals and output graph" width="100%" />
-			<p><strong>🌊 Convolution Lab</strong><br/>Custom signal inputs, parameter controls, and multi-plot output visualization.</p>
-		</td>
-		<td width="50%" valign="top">
-			<img src="screenshot/test-yourself.png" alt="Self assessment interface with MCQ and scoring" width="100%" />
-			<p><strong>📝 Self Assessment</strong><br/>Quiz-based learning with progress, difficulty, and score tracking.</p>
-		</td>
-	</tr>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="https://raw.githubusercontent.com/sandeepsidar1210-rgb/signals-system-project/main/screenshot/home.png" alt="Home dashboard with hero section and signal preview" width="100%" />
+      <p><strong>🏠 Home Experience</strong><br/>Beautiful landing page with navigation, hero CTA, and live signal preview.</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="https://raw.githubusercontent.com/sandeepsidar1210-rgb/signals-system-project/main/screenshot/ai-tutor.png" alt="AI Tutor chat interface explaining convolution" width="100%" />
+      <p><strong>🤖 AI Tutor</strong><br/>In-context assistant for conceptual explanations and graph-based guidance.</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="https://raw.githubusercontent.com/sandeepsidar1210-rgb/signals-system-project/main/screenshot/convolution-lab.png" alt="Convolution lab with custom signals and output graph" width="100%" />
+      <p><strong>🌊 Convolution Lab</strong><br/>Custom signal inputs, parameter controls, and multi-plot output visualization.</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="https://raw.githubusercontent.com/sandeepsidar1210-rgb/signals-system-project/main/screenshot/test-yourself.png" alt="Self assessment interface with MCQ and scoring" width="100%" />
+      <p><strong>📝 Self Assessment</strong><br/>Quiz-based learning with progress, difficulty, and score tracking.</p>
+    </td>
+  </tr>
 </table>
 
 ## 🚢 Deployment
@@ -173,4 +173,5 @@ PRs are welcome.
 
 ## 📄 License
 
+Add your preferred license text (MIT is a common choice).
 Add your preferred license text (MIT is a common choice).
