@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function currentFormula() {
-    return 'y(t) = integral x(tau) h(t - tau) dtau';
+    return '$$y(t)=\\int x(\\tau)h(t-\\tau)d\\tau$$';
   }
 
   function renderExplanation() {

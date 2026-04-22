@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (controls.type.value === 'square') return `x(t) = ${A} sign(sin(2 pi ${f} t))`;
     if (controls.type.value === 'triangular') return `x(t) = (2 ${A} / pi) asin(sin(2 pi ${f} t))`;
     if (controls.type.value === 'exponential') return `x(t) = ${A} exp(-${f} |t|)`;
-    return `x(t) = ${A} sin(2 pi ${f} t)`;
+    return `$$x(t)=${A}\\sin(2\\pi ${f} t)$$`;
   }
 
   function toggleFrequencyControl() {

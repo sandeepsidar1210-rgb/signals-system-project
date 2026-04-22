@@ -211,11 +211,13 @@ function autoFormatNarrativeText(text) {
 
 function normalizeMathArtifacts(text) {
   return String(text || '')
-    .replace(/\bint\b/g, '\\int')
-    .replace(/\bsum_?k\b/g, '\\sum_k')
-    .replace(/\bau\b/g, '\\tau')
-    .replace(/\bpm\b/g, '\\pm')
-    .replace(/\bpi\b/g, '\\pi');
+    .replace(/\bintegral\b/gi, '\\int')
+    .replace(/\bint(?=\s*[A-Za-z(])/gi, '\\int ')
+    .replace(/\bsum_?k\b/gi, '\\sum_k')
+    .replace(/\bsum(?=\s*[A-Za-z\[(])/gi, '\\sum ')
+    .replace(/\bau\b/gi, '\\tau')
+    .replace(/\bpm\b/gi, '\\pm')
+    .replace(/\bpi\b/gi, '\\pi');
 }
 
 function formatAiResponseHtml(text) {

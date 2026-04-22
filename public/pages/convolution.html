@@ -99,7 +99,7 @@
 
       <div class="card stack-plots">
         <h2>Convolution Visualization</h2>
-        <div class="formula-live" id="convolution-formula-live">y(t) = integral x(tau) h(t - tau) dtau</div>
+        <div class="formula-live" id="convolution-formula-live">$$y(t)=\int x(\tau)h(t-\tau)d\tau$$</div>
         <div id="signal1-plot" class="plot"></div>
         <div id="signal2-plot" class="plot"></div>
         <div id="conv-plot" class="plot"></div>
@@ -116,22 +116,22 @@
         <article class="theory-card">
           <h3 class="theory-card-title">Convolution Definition</h3>
           <div class="theory-box definition">Convolution computes the output of a linear time-invariant system from an input and an impulse response.</div>
-          <div class="theory-box formula">y(t) = integral x(tau) h(t - tau) dtau</div>
+          <div class="theory-box formula">$$y(t)=\int x(\tau)h(t-\tau)d\tau$$</div>
           <div class="theory-box explanation">It accumulates weighted overlap between one signal and a shifted version of the other.</div>
         </article>
 
         <article class="theory-card">
           <h3 class="theory-card-title">Physical Interpretation</h3>
           <div class="theory-box definition">At each time instant, you measure how strongly the two signals align and sum this effect over all tau.</div>
-          <div class="theory-box formula">Discrete idea: y[k] = sum x[n] h[k - n]</div>
+          <div class="theory-box formula">Discrete idea: $$y[k]=\sum_n x[n]h[k-n]$$</div>
           <div class="theory-box explanation">In this lab, convolution is computed numerically using sampled values over a finite range.</div>
         </article>
 
         <article class="theory-card">
           <h3 class="theory-card-title">Connection to Symmetry</h3>
           <div class="theory-box definition">Even and odd decomposition helps analyze why certain convolution outputs appear symmetric or skewed.</div>
-          <div class="theory-box formula">x_e(t) = (x(t) + x(-t)) / 2</div>
-          <div class="theory-box formula">x_o(t) = (x(t) - x(-t)) / 2</div>
+          <div class="theory-box formula">$$x_e(t)=\frac{x(t)+x(-t)}{2}$$</div>
+          <div class="theory-box formula">$$x_o(t)=\frac{x(t)-x(-t)}{2}$$</div>
           <div class="theory-box explanation">Decomposing first can make convolution behavior easier to reason about component-by-component.</div>
         </article>
       </div>
