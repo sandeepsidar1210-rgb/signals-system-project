@@ -1,4 +1,4 @@
-const CHAT_STORAGE_KEY = 'savl-chat-history-v1';
+const CHAT_STORAGE_KEY = 'savl-chat-history-v2';
 const CHAT_TOPIC_MEMORY_KEY = 'savl-chat-topic-memory-v1';
 const BASE_URL = window.BASE_URL || ((window.location.protocol === 'file:' || window.location.origin === 'null')
   ? 'http://localhost:5000'
@@ -213,7 +213,8 @@ function formatAiResponseHtml(text) {
   const source = String(text || '');
   const { value: protectedText, formulas } = protectMathBlocks(source);
   const formattedText = autoFormatNarrativeText(protectedText);
-  const escapedMarkdown = escapeHtml(formattedText);
+  const BACKSLASH_TOKEN = '@@BACKSLASH_TOKEN@@';
+  const escapedMarkdown = escapeHtml(formattedText).replace(/\\/g, BACKSLASH_TOKEN);
 
   if (window.marked && typeof window.marked.parse === 'function') {
     const parsed = window.marked.parse(escapedMarkdown, {
@@ -221,10 +222,13 @@ function formatAiResponseHtml(text) {
       breaks: true
     });
 
-    return restoreMathBlocks(parsed, formulas);
+    return restoreMathBlocks(parsed.replace(new RegExp(BACKSLASH_TOKEN, 'g'), '\\'), formulas);
   }
 
-  return restoreMathBlocks(fallbackMarkdownToHtml(escapedMarkdown), formulas);
+  return restoreMathBlocks(
+    fallbackMarkdownToHtml(escapedMarkdown).replace(new RegExp(BACKSLASH_TOKEN, 'g'), '\\'),
+    formulas
+  );
 }
 
 function renderChatMath(scope = document.body) {
