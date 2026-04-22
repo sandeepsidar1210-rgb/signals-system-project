@@ -209,8 +209,17 @@ function autoFormatNarrativeText(text) {
   return value;
 }
 
+function normalizeMathArtifacts(text) {
+  return String(text || '')
+    .replace(/\bint\b/g, '\\int')
+    .replace(/\bsum_?k\b/g, '\\sum_k')
+    .replace(/\bau\b/g, '\\tau')
+    .replace(/\bpm\b/g, '\\pm')
+    .replace(/\bpi\b/g, '\\pi');
+}
+
 function formatAiResponseHtml(text) {
-  const source = String(text || '');
+  const source = normalizeMathArtifacts(String(text || ''));
   const { value: protectedText, formulas } = protectMathBlocks(source);
   const formattedText = autoFormatNarrativeText(protectedText);
   const BACKSLASH_TOKEN = '@@BACKSLASH_TOKEN@@';
