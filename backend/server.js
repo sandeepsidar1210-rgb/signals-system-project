@@ -2,9 +2,16 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
+const fs = require('fs');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 
-dotenv.config({ path: path.join(__dirname, '.env') });
+const isProduction = process.env.NODE_ENV === 'production';
+const backendEnvPath = path.join(__dirname, '.env');
+
+// In production, secrets should come from platform environment variables.
+if (!isProduction && fs.existsSync(backendEnvPath)) {
+  dotenv.config({ path: backendEnvPath });
+}
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -363,7 +370,7 @@ function buildFallbackTutorReply(message, context = {}) {
 }
 
 if (!process.env.GEMINI_API_KEY) {
-  console.error('Missing GEMINI_API_KEY in backend/.env');
+  console.warn('GEMINI_API_KEY is not set. Chat endpoint will use fallback tutor mode.');
 }
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
